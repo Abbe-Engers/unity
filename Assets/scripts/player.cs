@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour {
     public float moveSpeed = 10.0f;
     bool facingRight = true;
-    int level = 1;
+    public int level = 1;
     public float jumpSpeed = 300.0f;
+
+    public Text levelCount;
 
     public float speed = 10.0f;
 
@@ -20,6 +23,8 @@ public class player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        UpdateCounter();
+
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
 
@@ -29,6 +34,11 @@ public class player : MonoBehaviour {
     void SetTransformXY(float x, float y)
     {
         transform.position = new Vector3(x, y);
+    }
+
+    void UpdateCounter()
+    {
+        levelCount.text = level.ToString();
     }
 
     void FixedUpdate() {
@@ -63,6 +73,8 @@ public class player : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        UpdateCounter();
+
         float posX = Mathf.SmoothDamp(Camera.transform.position.x, transform.position.x, ref
         cameraVelocity.x, smoothTimeX);
 
@@ -75,9 +87,9 @@ public class player : MonoBehaviour {
             if (transform.position.y < 0.8 && transform.position.y > 0 && transform.position.x > 107.2 && transform.position.x < 120.27)
             {
                 //win
-                SetTransformXY(214.52f, 4.19f);
+                SetTransformXY(156.4f, 4.19f);
                 rigid.velocity = new Vector2(0, 0);
-                Camera.transform.position = new Vector3(214.52f, 4.19f, Camera.transform.position.z);
+                Camera.transform.position = new Vector3(156.4f, 4.19f, Camera.transform.position.z);
                 level = 2;
             }
 
@@ -88,34 +100,34 @@ public class player : MonoBehaviour {
                 level = 1;
             }
         }
-        else if (level == 2)
+        if (level == 2)
         {
             if (transform.position.y < 0.8 && transform.position.y > 0 && transform.position.x > 107.2 && transform.position.x < 120.27)
             {
                 //win
-                SetTransformXY(214.52f, 4.19f);
+                SetTransformXY(156.4f, 4.19f);
                 rigid.velocity = new Vector2(0, 0);
-                Camera.transform.position = new Vector3(214.52f, 4.19f, Camera.transform.position.z);
+                Camera.transform.position = new Vector3(156.4f, 4.19f, Camera.transform.position.z);
                 level = 3;
             }
 
             if (transform.position.y < -5)
             {
-                SetTransformXY(214.52f, 4.19f);
+                SetTransformXY(156.4f, 4.19f);
                 rigid.velocity = new Vector2(0, 0);
                 level = 1;
             }
         }
         
 
-        if (posY < 2)
+        if (posY < 3)
         {
             Camera.transform.position = new Vector3(posX, posY, Camera.transform.position.z);
         }
 
         else
         {
-            Camera.transform.position = new Vector3(posX, 2, Camera.transform.position.z);
+            Camera.transform.position = new Vector3(posX, 3, Camera.transform.position.z);
         }
     }
 }
